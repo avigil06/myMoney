@@ -6,15 +6,22 @@ const tools = require('../utilities');
 module.exports = (sequelize, DataTypes) => {
   const transaction = sequelize.define('Transaction', {
     payee: DataTypes.STRING,
-    transactionType: DataTypes.ENUM(tools.transaction.types()),
-    amount: DataTypes.DECIMAL(10, 2),
-    date: {
-      type: DataTypes.DATE,
+    transactionType: {
+      type: DataTypes.ENUM(tools.transaction.types()),
       validate: {
-        isNumeric: true,
+        isIn: [
+          tools.transaction.types()
+        ]
+      }
+    },
+    amount: {
+      type: DataTypes.DECIMAL(10, 2),
+      validate: {
+        isDecimal: true,
         min: 0
       }
-    }
+    },
+    date: DataTypes.DATE
   });
 
   transaction.belongsTo(sequelize.models.Account);
