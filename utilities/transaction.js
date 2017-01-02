@@ -33,6 +33,22 @@ const get = args => {
   });
 };
 
+const getLast = args => {
+  const Transaction = require('../models').Transaction;
+
+  if (!Object.prototype.hasOwnProperty.call(args, 'AccountId')) {
+    return falsePromise();
+  }
+
+  return Transaction.findOne({where: args, order: [['createdAt', 'DESC']]})
+  .then(transaction => {
+    return transaction;
+  })
+  .catch((error) => {
+    return false;
+  });
+};
+
 const create = args => {
   const Transaction = require('../models').Transaction;
 
@@ -49,8 +65,39 @@ const create = args => {
   });
 };
 
+const update = (transaction, args) => {
+  Object.keys(args).forEach(field => {
+    transaction[field] = args[field];
+  });
+
+  return transaction.save()
+  .then(newTransaction => {
+    return newTransaction ? newTransaction : false;
+  })
+  .catch(() => {
+    return false;
+  });
+};
+
+const remove = transaction => {
+  if (transaction === false) {
+    return falsePromise();
+  }
+
+  return transaction.destroy()
+  .then((status) => {
+    return true;
+  })
+  .catch((error) => {
+    return false;
+  });
+};
+
 module.exports = {
   types,
   get,
-  create
+  getLast,
+  create,
+  update,
+  remove
 };
