@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         ]
       }
     },
+    transactionTerm: DataTypes.STRING,
     amount: {
       type: DataTypes.DECIMAL(10, 2),
       validate: {

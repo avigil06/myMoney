@@ -72,7 +72,7 @@ describe('Transaction Model Tests', () => {
   describe('TransactionGet', () => {
     it('First Record', () => {
       const args = {
-        id: 1
+        AccountId: 1
       };
       const Transaction = tools.transaction.get(args);
 
@@ -92,10 +92,9 @@ describe('Transaction Model Tests', () => {
   describe('TransactionEdit', () => {
     it('Edit Payee', () => {
       const args = {
-        id: 1,
         payee: 'New Payee'
       };
-      const Transaction = tools.transaction.get({id: 1});
+      const Transaction = tools.transaction.get({AccountId: 1});
       const updatedTransaction = Transaction
       .then(transaction => {
         return tools.transaction.update(transaction, args);
@@ -109,10 +108,9 @@ describe('Transaction Model Tests', () => {
 
     it('Account to Account', () => {
       const args = {
-        id: 1,
         AccountId: 2
       };
-      const Transaction = tools.transaction.get({id: 1});
+      const Transaction = tools.transaction.get({AccountId: 1});
       const updatedTransaction = Transaction
       .then(transaction => {
         return tools.transaction.update(transaction, args);

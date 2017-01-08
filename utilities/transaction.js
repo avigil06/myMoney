@@ -20,7 +20,7 @@ const types = () => {
 const get = args => {
   const Transaction = require('../models').Transaction;
 
-  if (!Object.prototype.hasOwnProperty.call(args, 'id')) {
+  if (!Object.prototype.hasOwnProperty.call(args, 'AccountId')) {
     return falsePromise();
   }
 
@@ -44,7 +44,7 @@ const getLast = args => {
   .then(transaction => {
     return transaction;
   })
-  .catch((error) => {
+  .catch(() => {
     return false;
   });
 };
@@ -85,10 +85,10 @@ const remove = transaction => {
   }
 
   return transaction.destroy()
-  .then((status) => {
+  .then(() => {
     return true;
   })
-  .catch((error) => {
+  .catch(() => {
     return false;
   });
 };
