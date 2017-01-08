@@ -19,7 +19,6 @@ describe('Transaction Term Model Tests', () => {
         return tools.transactionTerm.apply(transaction, 'food:dine-out');
       })
       .catch(err => {
-        console.log(err);
         return false;
       });
 
